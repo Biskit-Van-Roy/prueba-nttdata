@@ -1,0 +1,30 @@
+.header-bar {
+  height: 60px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.bank-icon {
+  width: 40px;
+  height: auto;
+  transform: scaleX(-1);
+}
+
+.bank-text {
+  font-size: 28px;
+  font-family: "Arvo", serif;
+  font-weight: 500;
+  color: rgb(8, 19, 136);
+}

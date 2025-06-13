@@ -1,0 +1,74 @@
+<barra-superior titulo="BANCO" />
+<div class="container">
+  <div class="top-bar" *ngIf="!mostrarFormulario">
+    <input
+      type="text"
+      placeholder="Buscar..."
+      class="search-input"
+      [(ngModel)]="filtro"
+      (ngModelChange)="filtrarProductos()"
+    />
+    <button class="add-button" (click)="formularioAdd()">Agregar</button>
+  </div>
+
+  <div class="table-wrapper" *ngIf="!mostrarFormulario">
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>Logo</th>
+          <th>Nombre del producto</th>
+          <th>Descripción <span class="info-icon">i</span></th>
+          <th>Fecha de liberación <span class="info-icon">i</span></th>
+          <th>Fecha de reestructuración <span class="info-icon">i</span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productosFiltrados">
+          <td>
+            <div class="avatar">{{ producto.logo }}</div>
+          </td>
+          <td>{{ producto.name }}</td>
+          <td>{{ producto.description }}</td>
+          <td>{{ producto.date_release }}</td>
+          <td>{{ producto.date_revision }}</td>
+          <td class="menu-wrapper" style="position: relative">
+            <!-- Ícono de menú (SVG de tres puntos verticales) -->
+            <button class="menu-button" (click)="toggleMenu(producto)">
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <circle cx="12" cy="5" r="2" />
+                <circle cx="12" cy="12" r="2" />
+                <circle cx="12" cy="19" r="2" />
+              </svg>
+            </button>
+
+            <!-- Menú desplegable con animación -->
+            <div
+              class="dropdown-menu fade-in"
+              *ngIf="menuAbierto === producto"
+              style="position: absolute; right: 0; top: 100%; z-index: 100"
+            >
+              <button (click)="editarProducto(producto)">Editar</button>
+              <button (click)="eliminarProducto(producto)">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer">
+      <span>{{ productos.length }} Resultados</span>
+      <select>
+        <option value="5" selected>5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+    </div>
+  </div>
+<div *ngIf="mostrarFormulario">
+  <add-producto
+    (cancelar)="listadoBack()"
+    [producto]="productoEditando"
+  />
+</div>
+</div>

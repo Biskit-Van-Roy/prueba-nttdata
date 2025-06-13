@@ -1,0 +1,68 @@
+<div class="form-container">
+  <div class="container-back">
+    <button type="button" class="back-button" (click)="cerrarFormulario()">Regresar</button>
+  </div>
+
+  <h2>Formulario de Registro</h2>
+
+  <form [formGroup]="formulario"   (ngSubmit)="enviar()">
+    <div class="form-row">
+      <div class="form-group"  [class.error]="formulario.get('id')?.touched && formulario.get('id')?.invalid">
+        <label for="id">ID</label>
+        <input id="id" type="text" formControlName="id" required/>
+        <small *ngIf="formulario.get('id')?.touched && formulario.get('id')?.invalid">
+          ¡El ID es obligatorio!
+        </small>
+      </div>
+
+      <div class="form-group"  [class.error]="formulario.get('id')?.touched && formulario.get('id')?.invalid">
+        <label for="name">Nombre</label>
+        <input id="name" type="text" formControlName="name" required />
+        <small *ngIf="formulario.get('name')?.touched && formulario.get('name')?.invalid">
+    ¡Debes ingresar un nombre!
+  </small>
+      </div>
+    </div>
+
+    <!-- Fila 2 -->
+    <div class="form-row">
+      <div class="form-group"  [class.error]="formulario.get('id')?.touched && formulario.get('id')?.invalid">
+        <label for="description">Descripción</label>
+        <input id="description" type="text" formControlName="description"  required/>
+        <small *ngIf="formulario.get('description')?.touched && formulario.get('description')?.invalid">
+          ¡La descripción no puede estar vacía!
+        </small>
+      </div>
+
+      <div class="form-group"  [class.error]="formulario.get('id')?.touched && formulario.get('id')?.invalid">
+        <label for="logo">Logo</label>
+        <input id="logo" type="text" formControlName="logo" required />
+        <small *ngIf="formulario.get('logo')?.touched && formulario.get('logo')?.invalid">
+          ¡El logo es obligatorio!
+        </small>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"  [class.error]="formulario.get('id')?.touched && formulario.get('id')?.invalid">
+        <label for="date_release">Fecha Liberación</label>
+        <input id="date_release" type="date" formControlName="date_release"  required/>
+        <small *ngIf="formulario.get('date_release')?.touched && formulario.get('date_release')?.invalid">
+          ¡Debes seleccionar una fecha!
+        </small>
+      </div>
+      <div class="form-group">
+        <label>Fecha Revisión</label>
+        <input type="date" [value]="formulario.value.date_revision" disabled />
+      </div>
+    </div>
+    <br/>
+    <div class="buttons">
+      <button type="reset" class="btn reset" (click)="formulario.reset()">Reiniciar</button>
+      <button type="submit" class="btn submit" [disabled]="loading">
+        {{ loading ? 'Enviando...' : 'Enviar' }}
+      </button>
+    </div>
+  </form>
+
+  <p *ngIf="mensaje">{{ mensaje }}</p>
+</div>
