@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let producto of productosFiltrados">
+        <tr *ngFor="let producto of productosPaginados">
           <td>
             <div class="avatar">{{ producto.logo }}</div>
           </td>
@@ -33,7 +33,6 @@
           <td>{{ producto.date_release }}</td>
           <td>{{ producto.date_revision }}</td>
           <td class="menu-wrapper" style="position: relative">
-            <!-- Ícono de menú (SVG de tres puntos verticales) -->
             <button class="menu-button" (click)="toggleMenu(producto)">
               <svg width="20" height="20" viewBox="0 0 24 24">
                 <circle cx="12" cy="5" r="2" />
@@ -42,7 +41,6 @@
               </svg>
             </button>
 
-            <!-- Menú desplegable con animación -->
             <div
               class="dropdown-menu fade-in"
               *ngIf="menuAbierto === producto"
@@ -57,18 +55,39 @@
     </table>
 
     <div class="footer">
-      <span>{{ productos.length }} Resultados</span>
-      <select>
-        <option value="5" selected>5</option>
+      <span>{{ productosFiltrados.length }} Resultados</span>
+      <select [(ngModel)]="pageSize" (change)="cambiarPageSize()">
+        <option value="5">5</option>
         <option value="10">10</option>
         <option value="20">20</option>
       </select>
+
+      <div class="pagination" *ngIf="totalPaginas > 1">
+        <button (click)="cambiarPagina(currentPage - 1)" [disabled]="currentPage === 1" class="btn-paginacion">Anterior</button>
+        <span class="indice">Página {{ currentPage }} de {{ totalPaginas }}</span>
+        <button (click)="cambiarPagina(currentPage + 1)" [disabled]="currentPage === totalPaginas" class="btn-paginacion">Siguiente</button>
+      </div>
     </div>
   </div>
-<div *ngIf="mostrarFormulario">
-  <add-producto
-    (cancelar)="listadoBack()"
-    [producto]="productoEditando"
-  />
+
+  <div *ngIf="mostrarFormulario">
+    <add-producto
+      (cancelar)="listadoBack()"
+      [producto]="productoEditando"
+    />
+  </div>
+  <div class="modal-backdrop" *ngIf="productoAEliminar">
+  <div class="modal-content">
+    <div class="modal-texto">
+    <h3>¿Estas seguro de eliminar el producto <strong>{{ productoAEliminar.name }}</strong>?</h3>
+    <br/>
+
+    </div>
+
+    <div class="modal-buttons">
+       <button class="btn gris" (click)="cancelarEliminacion()">Cancelar</button>
+       <button class="btn amarillo" (click)="confirmarEliminacion(productoAEliminar.id??'')">Eliminar</button>
+    </div>
+  </div>
 </div>
 </div>
