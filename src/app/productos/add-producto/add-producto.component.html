@@ -1,7 +1,7 @@
 <div class="form-container">
-  <div class="container-back">
-    <button type="button" class="back-button" (click)="cerrarFormulario()">Regresar</button>
-  </div>
+<div class="container-back">
+  <a class="back-button" [routerLink]="['/']" (click)="cerrarFormulario()">Regresar</a>
+</div>
 
   <h2>Formulario de Registro</h2>
 
@@ -23,8 +23,6 @@
   </small>
       </div>
     </div>
-
-    <!-- Fila 2 -->
     <div class="form-row">
       <div class="form-group"  [class.error]="formulario.get('id')?.touched && formulario.get('id')?.invalid">
         <label for="description">Descripción</label>

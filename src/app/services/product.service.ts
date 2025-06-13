@@ -24,4 +24,13 @@ getProductos(): Observable<IProducto[]> {
     map(response => response.data)
   );
 }
+eliminarProducto(id: string) {
+  return this.http.delete(`http://localhost:3002/bp/products/${id}`);
+}
+editarProducto(producto: IProducto): Observable<IProducto> {
+  return this.http.put<IProducto>(`${this.apiUrl}/${producto.id}`, producto);
+}
+
+
+
 }

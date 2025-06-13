@@ -1,4 +1,5 @@
 export interface IProducto {
+  id?: string;
   name: string;
   description: string;
   date_release: string;
@@ -7,6 +8,7 @@ export interface IProducto {
 }
 
 export class Producto implements IProducto {
+  id?: string;
   name: string;
   description: string;
   date_release: string;
@@ -14,6 +16,7 @@ export class Producto implements IProducto {
   logo: string;
 
   constructor(data: IProducto) {
+    this.id = data.id;
     this.name = data.name;
     this.description = data.description;
     this.date_release = data.date_release;
